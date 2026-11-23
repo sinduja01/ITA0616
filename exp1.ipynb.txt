@@ -1,0 +1,104 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN/Vatv90jhaRvyAlLl9UZT",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192524158simats-gif/ITA0616--Machine-learning/blob/main/exp1.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9CADnkw0HkNu",
+        "outputId": "48ace99a-adab-459f-ce25-2858d255e6b5"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Training Examples:\n",
+            "['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']\n",
+            "['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']\n",
+            "['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No']\n",
+            "['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']\n",
+            "\n",
+            "Current Hypothesis: ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "Current Hypothesis: ['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']\n",
+            "\n",
+            "Current Hypothesis: ['Sunny', 'Warm', '?', 'Strong', '?', '?']\n",
+            "\n",
+            "Final Most Specific Hypothesis:\n",
+            "['Sunny', 'Warm', '?', 'Strong', '?', '?']\n"
+          ]
+        }
+      ],
+      "source": [
+        "# FIND-S Algorithm\n",
+        "\n",
+        "# Training dataset\n",
+        "training_data = [\n",
+        "    ['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes'],\n",
+        "    ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes'],\n",
+        "    ['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No'],\n",
+        "    ['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']\n",
+        "]\n",
+        "\n",
+        "# Number of attributes\n",
+        "num_attributes = len(training_data[0]) - 1\n",
+        "\n",
+        "# Initialize the most specific hypothesis\n",
+        "hypothesis = [None] * num_attributes\n",
+        "\n",
+        "print(\"Training Examples:\")\n",
+        "for row in training_data:\n",
+        "    print(row)\n",
+        "\n",
+        "# FIND-S algorithm\n",
+        "for example in training_data:\n",
+        "\n",
+        "    # Consider only positive examples\n",
+        "    if example[-1] == 'Yes':\n",
+        "\n",
+        "        for i in range(num_attributes):\n",
+        "\n",
+        "            if hypothesis[i] is None:\n",
+        "                hypothesis[i] = example[i]\n",
+        "\n",
+        "            elif hypothesis[i] != example[i]:\n",
+        "                hypothesis[i] = '?'\n",
+        "\n",
+        "        print(\"\\nCurrent Hypothesis:\", hypothesis)\n",
+        "\n",
+        "# Display final hypothesis\n",
+        "print(\"\\nFinal Most Specific Hypothesis:\")\n",
+        "print(hypothesis)"
+      ]
+    }
+  ]
+}

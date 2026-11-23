@@ -1,0 +1,101 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOSEO8BMfKJ23+s55rloT1U",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192524158simats-gif/ITA0616--Machine-learning/blob/main/exp7.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 4,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HCTX8mjBLW47",
+        "outputId": "0501fc02-b3bd-4d18-9103-9a4af23102c8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Predicted Values: [1 1 1 0 0 0 0 1 0 0 0 0 1 0 1 0 1 1 0 0 1 1 0 0 1 0 0 1 0 1]\n",
+            "Actual Values: [1 1 1 0 0 0 0 1 0 0 0 0 1 0 1 0 1 1 0 0 1 1 0 0 1 0 0 1 0 1]\n",
+            "\n",
+            "Accuracy: 100.0 %\n",
+            "\n",
+            "Confusion Matrix:\n",
+            "[[17  0]\n",
+            " [ 0 13]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "\n",
+        "\n",
+        "\n",
+        "import numpy as np\n",
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.linear_model import LogisticRegression\n",
+        "from sklearn.metrics import accuracy_score, confusion_matrix\n",
+        "\n",
+        "# Load dataset\n",
+        "iris = load_iris()\n",
+        "\n",
+        "# Use two classes for binary classification\n",
+        "X = iris.data[iris.target != 2]\n",
+        "Y = iris.target[iris.target != 2]\n",
+        "\n",
+        "# Split dataset\n",
+        "X_train, X_test, Y_train, Y_test = train_test_split(\n",
+        "    X, Y, test_size=0.3, random_state=42\n",
+        ")\n",
+        "\n",
+        "# Create Logistic Regression model\n",
+        "model = LogisticRegression()\n",
+        "\n",
+        "# Train model\n",
+        "model.fit(X_train, Y_train)\n",
+        "\n",
+        "# Predict output\n",
+        "Y_pred = model.predict(X_test)\n",
+        "\n",
+        "# Display results\n",
+        "print(\"Predicted Values:\", Y_pred)\n",
+        "print(\"Actual Values:\", Y_test)\n",
+        "\n",
+        "# Calculate accuracy\n",
+        "accuracy = accuracy_score(Y_test, Y_pred)\n",
+        "print(\"\\nAccuracy:\", accuracy * 100, \"%\")\n",
+        "\n",
+        "# Display confusion matrix\n",
+        "print(\"\\nConfusion Matrix:\")\n",
+        "print(confusion_matrix(Y_test, Y_pred))\n"
+      ]
+    }
+  ]
+}

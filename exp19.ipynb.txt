@@ -1,0 +1,124 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOtszt9ToGyRMaTFxaeDjGW",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192524158simats-gif/ITA0616--Machine-learning/blob/main/exp19.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 16,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HCTX8mjBLW47",
+        "outputId": "a993e06b-fbaa-4464-a9b9-8298ccc28d2f"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Accuracy: 100.0 %\n",
+            "\n",
+            "Confusion Matrix:\n",
+            "[[2 0]\n",
+            " [0 1]]\n",
+            "\n",
+            "Loan Status: Rejected\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "\n",
+        "\n",
+        "import pandas as pd\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.preprocessing import LabelEncoder\n",
+        "from sklearn.naive_bayes import GaussianNB\n",
+        "from sklearn.metrics import accuracy_score, confusion_matrix\n",
+        "\n",
+        "# Create dataset\n",
+        "data = {\n",
+        "    'Income': [30000, 40000, 50000, 60000, 25000,\n",
+        "               70000, 80000, 35000, 90000, 45000],\n",
+        "    'Credit_Score': [600, 650, 700, 750, 550,\n",
+        "                     780, 800, 620, 820, 680],\n",
+        "    'Loan_Amount': [100000, 120000, 150000, 180000, 90000,\n",
+        "                    200000, 220000, 110000, 250000, 140000],\n",
+        "    'Employment': ['No', 'Yes', 'Yes', 'Yes', 'No',\n",
+        "                   'Yes', 'Yes', 'No', 'Yes', 'Yes'],\n",
+        "    'Loan_Status': ['Rejected', 'Approved', 'Approved', 'Approved',\n",
+        "                    'Rejected', 'Approved', 'Approved', 'Rejected',\n",
+        "                    'Approved', 'Approved']\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "# Encode categorical data\n",
+        "encoder = LabelEncoder()\n",
+        "df['Employment'] = encoder.fit_transform(df['Employment'])\n",
+        "df['Loan_Status'] = encoder.fit_transform(df['Loan_Status'])\n",
+        "\n",
+        "# Select features and target\n",
+        "X = df[['Income', 'Credit_Score', 'Loan_Amount', 'Employment']]\n",
+        "y = df['Loan_Status']\n",
+        "\n",
+        "# Split dataset\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.3, random_state=42, stratify=y\n",
+        ")\n",
+        "\n",
+        "# Create and train model\n",
+        "model = GaussianNB()\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "# Predict test data\n",
+        "y_pred = model.predict(X_test)\n",
+        "\n",
+        "# Evaluate model\n",
+        "print(\"Accuracy:\", accuracy_score(y_test, y_pred) * 100, \"%\")\n",
+        "print(\"\\nConfusion Matrix:\")\n",
+        "print(confusion_matrix(y_test, y_pred))\n",
+        "\n",
+        "# Predict a new loan application\n",
+        "new_applicant = pd.DataFrame({\n",
+        "    'Income': [60000],\n",
+        "    'Credit_Score': [750],\n",
+        "    'Loan_Amount': [150000],\n",
+        "    'Employment': [1]\n",
+        "})\n",
+        "\n",
+        "prediction = model.predict(new_applicant)\n",
+        "\n",
+        "if prediction[0] == 1:\n",
+        "    print(\"\\nLoan Status: Approved\")\n",
+        "else:\n",
+        "    print(\"\\nLoan Status: Rejected\")\n"
+      ]
+    }
+  ]
+}

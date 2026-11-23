@@ -1,0 +1,95 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMgrEd82TXEp+7UQ91BgbjF",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192524158simats-gif/ITA0616--Machine-learning/blob/main/exp3.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 6,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "9CADnkw0HkNu",
+        "outputId": "54c1c1bb-42e1-4468-978c-ad33aa8aed24"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "     Outlook Temperature Humidity    Wind Play\n",
+            "0      Sunny         Hot     High    Weak   No\n",
+            "1      Sunny         Hot     High  Strong   No\n",
+            "2   Overcast         Hot     High    Weak  Yes\n",
+            "3       Rain        Mild     High    Weak  Yes\n",
+            "4       Rain        Cool   Normal    Weak  Yes\n",
+            "5       Rain        Cool   Normal  Strong   No\n",
+            "6   Overcast        Cool   Normal  Strong  Yes\n",
+            "7      Sunny        Mild     High    Weak   No\n",
+            "8      Sunny        Cool   Normal    Weak  Yes\n",
+            "9       Rain        Mild   Normal    Weak  Yes\n",
+            "10     Sunny        Mild   Normal  Strong  Yes\n",
+            "11  Overcast        Mild     High  Strong  Yes\n",
+            "12  Overcast         Hot   Normal    Weak  Yes\n",
+            "13      Rain        Mild     High  Strong   No\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "\n",
+        "data = {\n",
+        "    'Outlook': ['Sunny', 'Sunny', 'Overcast', 'Rain', 'Rain',\n",
+        "                'Rain', 'Overcast', 'Sunny', 'Sunny', 'Rain',\n",
+        "                'Sunny', 'Overcast', 'Overcast', 'Rain'],\n",
+        "\n",
+        "    'Temperature': ['Hot', 'Hot', 'Hot', 'Mild', 'Cool',\n",
+        "                    'Cool', 'Cool', 'Mild', 'Cool', 'Mild',\n",
+        "                    'Mild', 'Mild', 'Hot', 'Mild'],\n",
+        "\n",
+        "    'Humidity': ['High', 'High', 'High', 'High', 'Normal',\n",
+        "                 'Normal', 'Normal', 'High', 'Normal', 'Normal',\n",
+        "                 'Normal', 'High', 'Normal', 'High'],\n",
+        "\n",
+        "    'Wind': ['Weak', 'Strong', 'Weak', 'Weak', 'Weak',\n",
+        "             'Strong', 'Strong', 'Weak', 'Weak', 'Weak',\n",
+        "             'Strong', 'Strong', 'Weak', 'Strong'],\n",
+        "\n",
+        "    'Play': ['No', 'No', 'Yes', 'Yes', 'Yes',\n",
+        "             'No', 'Yes', 'No', 'Yes', 'Yes',\n",
+        "             'Yes', 'Yes', 'Yes', 'No']\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "df.to_csv('play_tennis.csv', index=False)\n",
+        "\n",
+        "print(df)\n"
+      ]
+    }
+  ]
+}

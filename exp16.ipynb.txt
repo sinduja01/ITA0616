@@ -1,0 +1,101 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNCRZq281SfDECrv93UKppK",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192524158simats-gif/ITA0616--Machine-learning/blob/main/exp16.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 13,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HCTX8mjBLW47",
+        "outputId": "a25dc7ec-b0c2-47c3-c0a8-d2e3217d0fb8"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Classification Algorithm Performance:\n",
+            "\n",
+            "Logistic Regression Accuracy: 91.11 %\n",
+            "KNN Accuracy: 91.11 %\n",
+            "Decision Tree Accuracy: 93.33 %\n",
+            "Random Forest Accuracy: 88.89 %\n",
+            "Naive Bayes Accuracy: 91.11 %\n",
+            "SVM Accuracy: 93.33 %\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "from sklearn.pipeline import make_pipeline\n",
+        "from sklearn.linear_model import LogisticRegression\n",
+        "from sklearn.neighbors import KNeighborsClassifier\n",
+        "from sklearn.tree import DecisionTreeClassifier\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from sklearn.naive_bayes import GaussianNB\n",
+        "from sklearn.svm import SVC\n",
+        "from sklearn.metrics import accuracy_score\n",
+        "\n",
+        "# Load dataset\n",
+        "iris = load_iris()\n",
+        "X = iris.data\n",
+        "y = iris.target\n",
+        "\n",
+        "# Split dataset\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.3, random_state=42, stratify=y\n",
+        ")\n",
+        "\n",
+        "# Classification algorithms\n",
+        "models = {\n",
+        "    \"Logistic Regression\": make_pipeline(StandardScaler(), LogisticRegression(max_iter=200)),\n",
+        "    \"KNN\": make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=5)),\n",
+        "    \"Decision Tree\": DecisionTreeClassifier(random_state=42),\n",
+        "    \"Random Forest\": RandomForestClassifier(random_state=42),\n",
+        "    \"Naive Bayes\": GaussianNB(),\n",
+        "    \"SVM\": make_pipeline(StandardScaler(), SVC())\n",
+        "}\n",
+        "\n",
+        "# Train and evaluate models\n",
+        "print(\"Classification Algorithm Performance:\\n\")\n",
+        "\n",
+        "for name, model in models.items():\n",
+        "    model.fit(X_train, y_train)\n",
+        "    y_pred = model.predict(X_test)\n",
+        "    accuracy = accuracy_score(y_test, y_pred)\n",
+        "\n",
+        "    print(name, \"Accuracy:\", round(accuracy * 100, 2), \"%\")\n"
+      ]
+    }
+  ]
+}

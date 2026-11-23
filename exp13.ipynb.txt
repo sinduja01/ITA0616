@@ -1,0 +1,104 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOMxntLdyTy5JEC3MjHE7ix",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/192524158simats-gif/ITA0616--Machine-learning/blob/main/exp13.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 10,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "HCTX8mjBLW47",
+        "outputId": "ac3ca47d-ebcd-4812-eeec-f0da461b4964"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Mean Absolute Error: 31249.99999999994\n",
+            "R2 Score: 0.9870714222541053\n",
+            "\n",
+            "Predicted Car Price: Rs. 690948.28\n"
+          ]
+        }
+      ],
+      "source": [
+        "\n",
+        "import pandas as pd\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.linear_model import LinearRegression\n",
+        "from sklearn.metrics import mean_absolute_error, r2_score\n",
+        "\n",
+        "# Create dataset\n",
+        "data = {\n",
+        "    'Age': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],\n",
+        "    'Mileage': [10000, 20000, 30000, 40000, 50000,\n",
+        "                60000, 70000, 80000, 90000, 100000],\n",
+        "    'Engine_Size': [1200, 1300, 1400, 1500, 1600,\n",
+        "                    1700, 1800, 1900, 2000, 2100],\n",
+        "    'Price': [900000, 800000, 700000, 600000, 500000,\n",
+        "              400000, 350000, 300000, 250000, 200000]\n",
+        "}\n",
+        "\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "# Features and target\n",
+        "X = df[['Age', 'Mileage', 'Engine_Size']]\n",
+        "y = df['Price']\n",
+        "\n",
+        "# Split dataset\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X, y, test_size=0.2, random_state=42\n",
+        ")\n",
+        "\n",
+        "# Train model\n",
+        "model = LinearRegression()\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "# Predict prices\n",
+        "y_pred = model.predict(X_test)\n",
+        "\n",
+        "# Evaluate model\n",
+        "print(\"Mean Absolute Error:\", mean_absolute_error(y_test, y_pred))\n",
+        "print(\"R2 Score:\", r2_score(y_test, y_pred))\n",
+        "\n",
+        "# Predict price of a new car\n",
+        "new_car = pd.DataFrame({\n",
+        "    'Age': [3],\n",
+        "    'Mileage': [30000],\n",
+        "    'Engine_Size': [1400]\n",
+        "})\n",
+        "\n",
+        "predicted_price = model.predict(new_car)\n",
+        "\n",
+        "print(\"\\nPredicted Car Price: Rs.\", round(predicted_price[0], 2))\n"
+      ]
+    }
+  ]
+}
